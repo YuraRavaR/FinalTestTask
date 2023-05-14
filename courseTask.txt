@@ -1,0 +1,13 @@
+wirwmock, TestNg, maven, RestAssured, Selenium(driver manager), log4j, Page Object pattern.
+
+1) Create framework based on frameworks and libs.
+2) get data from /api/goods. Use wirwmock to stub backend.
+3) convert each item to POJO.
+4) navigate to https://elmir.ua/ 
+5) using site search find item by name
+6) assert: 
+	- item is found
+	- name are fully visible
+	- price is correct
+	- availability is correct 
+	- code is correct
