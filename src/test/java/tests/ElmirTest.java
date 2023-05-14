@@ -2,19 +2,14 @@ package tests;
 
 import data.Product;
 import io.restassured.http.ContentType;
-import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import pages.SearchPage;
-import org.testng.asserts.SoftAssert;
 
-import java.time.Duration;
-import java.util.LinkedList;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
@@ -27,26 +22,27 @@ public class ElmirTest extends BaseTest {
                 .when()
                 .contentType(ContentType.JSON)
                 .get(apiURL)
-                .then()//.log().all()
+                .then()
+                //.log().all()
                 .extract().body().jsonPath().getList("goods", Product.class);
 
-//        List<Product> actualProductList = new LinkedList<>();
 
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         SearchPage searchPage = PageFactory.initElements(driver, SearchPage.class);
 
-        driver.get("https://elmir.ua/");
+        openHomePage();
+//        driver.get("https://elmir.ua/");
 
         homePage.closePopupWindow();
 
         SoftAssert softAssert = new SoftAssert();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        List<Product> actualProductList = new LinkedList<>();
 
         expectedProductList.forEach(product -> {
             homePage.searchProduct(product.getName());
 
             try {
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='total']")));
+                wait.until(ExpectedConditions.visibilityOf(searchPage.getTotalResultTextElement()));
                 softAssert.assertTrue(searchPage.getTotalResultText().equals("Найден 1 товар"));
 
                 Product foundProduct = new Product();
@@ -70,9 +66,10 @@ public class ElmirTest extends BaseTest {
 
                 softAssert.assertTrue(product.getCode().equals(foundProduct.getCode()), "Product: " + product.getName() + " Expected code: " + product.getCode() + " but was: " + foundProduct.getCode());
 
-        //        actualProductList.add(foundProduct);
+                //        actualProductList.add(foundProduct);
             } catch (TimeoutException | AssertionError e) {
                 softAssert.fail("Product not found: " + product.getName());
+            //    LOG.error("Product not found: " + product.getName());
             }
         });
 //        for (Product p : actualProductList) {

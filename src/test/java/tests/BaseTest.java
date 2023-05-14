@@ -3,13 +3,9 @@ package tests;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 
@@ -19,7 +15,7 @@ public class BaseTest {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
-    // public static final Logger LOG = LogManager.getLogger(BaseTest.class.getName());
+    public static final Logger LOG = LogManager.getLogger(BaseTest.class.getName());
 
     @BeforeTest
     public void setDriver(){
@@ -37,6 +33,12 @@ public class BaseTest {
     public void closeUp() {
         if (driver != null)
             driver.quit();
+    }
+
+    public void openHomePage(){
+        String homePageUrl = "https://elmir.ua/";
+        driver.get(homePageUrl);
+        LOG.debug("Home page: " + homePageUrl + " is opened");
     }
 
 

@@ -10,35 +10,33 @@ import java.time.Duration;
 
 public class SearchPage {
     WebDriver driver;
+    WebDriverWait wait;
     @FindBy(xpath = "//span[@class='total']")
     WebElement totalResultText;
-
-    @FindBy(id = "logo")
-    WebElement homePageButton;
-    @FindBy(xpath = "//div[@class='catalog wish-new']//li[@ga-position='0']//a[@title]")
+    @FindBy(xpath = "//li[@ga-position='0']//a[@title]")
     WebElement titleFirst;
-
-    @FindBy(xpath = "//div[@class='catalog wish-new']//li[@ga-position='0']//div[@class='pprice']")
+    @FindBy(xpath = "//li[@ga-position='0']//div[@class='pprice']")
     WebElement priceFirst;
-    @FindBy(xpath = "//div[@class='catalog wish-new']//li[@ga-position='0']//div[@class='ti-id stop-select']")
+    @FindBy(xpath = "//li[@ga-position='0']//div[@class='ti-id stop-select']")
     WebElement codeFirst;
-    @FindBy(xpath = "//div[@class='catalog wish-new']//li[@ga-position='0']//span[@class='ti-t']")
+    @FindBy(xpath = "//li[@ga-position='0']//span[@class='ti-t']")
+//    @FindBy(xpath = "//span[@class='ti-t']")
     WebElement availabilityFirst;
 
     public SearchPage(WebDriver driver) {
         this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10), Duration.ofMillis(500));
+        BaseTest.LOG.debug("Init SearchPage");
+
     }
     public String getTotalResultText() {
         return totalResultText.getText();
     }
 
-//    public WebElement getTotalResultTextElement() {
-//        return totalResultText;
-//    }
-//
-//    public void clickHomePAgeButton() {
-//        homePageButton.click();
-//    }
+    public WebElement getTotalResultTextElement() {
+        return totalResultText;
+    }
+
     public String getTitle() {
         return titleFirst.getText();
     }
