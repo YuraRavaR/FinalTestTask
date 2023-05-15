@@ -16,7 +16,7 @@ import static io.restassured.RestAssured.given;
 
 public class ElmirTest extends BaseTest {
     @Test
-    public void test() {
+    public void verifyProductParametersAfterSearch() {
         String apiURL = "http://localhost:8080/api/goods";
         List<Product> expectedProductList = given()
                 .when()
@@ -47,29 +47,27 @@ public class ElmirTest extends BaseTest {
 
                 Product foundProduct = new Product();
                 foundProduct.setName(searchPage.getTitle());
+                softAssert.assertEquals(foundProduct.getName(), product.getName(), "Product: " + product.getName() + " name ");
 
-                softAssert.assertTrue(product.getName().equals(foundProduct.getName()), "Product: " + product.getName() + " Expected name: " + product.getName() + " but was: " + foundProduct.getName());
-
-                foundProduct.setPrice(searchPage.getPrice() != null && !searchPage.getPrice().isEmpty() ? searchPage.getPrice() : "0 ");
-                softAssert.assertTrue(product.getPrice().equals(foundProduct.getPrice()), "Product: " + product.getName() + " Expected price: " + product.getPrice() + " but was: " + foundProduct.getPrice());
-
+                foundProduct.setPrice(searchPage.getPrice() != null && !searchPage.getPrice().isEmpty() ? searchPage.getPrice() : "0");
+                softAssert.assertEquals(foundProduct.getPrice(), product.getPrice(), "Product: " + product.getName() + " price ");
 //                try {
-//               softAssert.assertTrue(product.getPrice().equals(foundProduct.getPrice()));
+//                    softAssert.assertEquals(foundProduct.getPrice(), product.getPrice());
 //                } catch (Exception e) {
 //                    softAssert.fail("Expected price: " + product.getPrice() + " but was: " + foundProduct.getPrice());
 //                }
+//
                 foundProduct.setAvailability(searchPage.getAvailability() != null && !searchPage.getAvailability().isEmpty() ? searchPage.getAvailability() : "0");
 
-                softAssert.assertTrue(product.getAvailability().equals(foundProduct.getAvailability()), "Product: " + product.getName() + " Expected availability: " + product.getAvailability() + " but was: " + foundProduct.getAvailability());
-
+                softAssert.assertEquals(foundProduct.getAvailability(), product.getAvailability(), "Product: " + product.getName() + " availability ");
                 foundProduct.setCode(searchPage.getCode() != null && !searchPage.getCode().isEmpty() ? searchPage.getCode() : "0");
 
-                softAssert.assertTrue(product.getCode().equals(foundProduct.getCode()), "Product: " + product.getName() + " Expected code: " + product.getCode() + " but was: " + foundProduct.getCode());
+                softAssert.assertEquals(foundProduct.getCode(), product.getCode(), "Product: " + product.getName() + " code ");
 
                 //        actualProductList.add(foundProduct);
             } catch (TimeoutException | AssertionError e) {
                 softAssert.fail("Product not found: " + product.getName());
-            //    LOG.error("Product not found: " + product.getName());
+                //    LOG.error("Product not found: " + product.getName());
             }
         });
 //        for (Product p : actualProductList) {

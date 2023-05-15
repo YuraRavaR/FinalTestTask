@@ -29,6 +29,7 @@ public class SearchPage {
         BaseTest.LOG.debug("Init SearchPage");
 
     }
+
     public String getTotalResultText() {
         return totalResultText.getText();
     }
@@ -37,15 +38,16 @@ public class SearchPage {
         return totalResultText;
     }
 
-    public String getTitle() {
-        return titleFirst.getText();
-    }
+    public String getTitle() {return titleFirst.getText();}
+
     public String getPrice() {
         return priceFirst.getText();
     }
+
     public String getCode() {
         return codeFirst.getText();
     }
+
     public String getAvailability() {
         return availabilityFirst.getText();
     }

@@ -25,7 +25,7 @@ public class BaseTest {
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10), Duration.ofMillis(500));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10), Duration.ofMillis(300));
 
     }
 
