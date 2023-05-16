@@ -14,14 +14,13 @@ public class SearchPage {
     @FindBy(xpath = "//span[@class='total']")
     WebElement totalResultText;
     @FindBy(xpath = "//li[@ga-position='0']//a[@title]")
-    WebElement titleFirst;
+    WebElement titleFirstElement;
     @FindBy(xpath = "//li[@ga-position='0']//div[@class='pprice']")
-    WebElement priceFirst;
+    WebElement priceFirstElement;
     @FindBy(xpath = "//li[@ga-position='0']//div[@class='ti-id stop-select']")
-    WebElement codeFirst;
+    WebElement codeFirstElement;
     @FindBy(xpath = "//li[@ga-position='0']//span[@class='ti-t']")
-//    @FindBy(xpath = "//span[@class='ti-t']")
-    WebElement availabilityFirst;
+    WebElement availabilityFirstElement;
 
     public SearchPage(WebDriver driver) {
         this.driver = driver;
@@ -38,17 +37,17 @@ public class SearchPage {
         return totalResultText;
     }
 
-    public String getTitle() {return titleFirst.getText();}
+    public String getTitle() {return titleFirstElement.getText();}
 
     public String getPrice() {
-        return priceFirst.getText();
+        return priceFirstElement.getText();
     }
 
     public String getCode() {
-        return codeFirst.getText();
+        return codeFirstElement.getText();
     }
 
     public String getAvailability() {
-        return availabilityFirst.getText();
+        return availabilityFirstElement.getText();
     }
 }
