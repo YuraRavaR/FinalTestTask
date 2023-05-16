@@ -24,17 +24,6 @@ public class BaseTest {
 
     public static final Logger LOG = LogManager.getLogger(BaseTest.class.getName());
 
-    @BeforeMethod
-    public void setupPrecondition() {
-        String apiURL = "http://localhost:8080/api/goods";
-        expectedData = given()
-                .when()
-                .contentType(ContentType.JSON)
-                .get(apiURL)
-                .then()
-                .extract().body().jsonPath().getList("goods", Product.class);
-    }
-
     @BeforeTest
     public void setDriver() {
 

@@ -1,15 +1,30 @@
 package tests;
 
 import data.Product;
+import io.restassured.http.ContentType;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import pages.SearchPage;
 
+import static io.restassured.RestAssured.given;
+
 
 public class ElmirTest extends BaseTest {
+    @BeforeMethod
+    public void setupPrecondition() {
+        String apiURL = "http://localhost:8080/api/goods";
+        expectedData = given()
+                .when()
+                .contentType(ContentType.JSON)
+                .get(apiURL)
+                .then()
+                .extract().body().jsonPath().getList("goods", Product.class);
+    }
+
     @Test
     public void verifyProductParametersAfterSearch() {
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);

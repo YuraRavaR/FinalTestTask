@@ -30,24 +30,32 @@ public class SearchPage {
     }
 
     public String getTotalResultText() {
+        BaseTest.LOG.debug("getTotalResultText" + totalResultText);
         return totalResultText.getText();
     }
 
     public WebElement getTotalResultTextElement() {
+        BaseTest.LOG.debug("getTotalResultTextElement");
         return totalResultText;
     }
 
-    public String getTitle() {return titleFirstElement.getText();}
+    public String getTitle() {
+        BaseTest.LOG.debug("getTitle");
+        return titleFirstElement.getText();
+    }
 
     public String getPrice() {
+        BaseTest.LOG.debug("getPrice");
         return priceFirstElement.getText();
     }
 
     public String getCode() {
+        BaseTest.LOG.debug("getCode");
         return codeFirstElement.getText();
     }
 
     public String getAvailability() {
+        BaseTest.LOG.debug("getAvailability");
         return availabilityFirstElement.getText();
     }
 }
